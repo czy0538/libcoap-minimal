@@ -25,7 +25,7 @@ int main(void) {
     coap_set_log_level(LOG_WARNING);
 
     /* resolve destination address where server should be sent */
-    if (resolve_address("coap.me", "5683", &dst) < 0) {
+    if (resolve_address("localhost", "5683", &dst) < 0) {
         coap_log(LOG_CRIT, "failed to resolve address\n");
         goto finish;
     }
@@ -51,7 +51,7 @@ int main(void) {
     });
     /* construct CoAP message */
     pdu = coap_pdu_init(
-        COAP_MESSAGE_CON, COAP_REQUEST_CODE_GET, coap_new_message_id(session), coap_session_max_pdu_size(session));
+        COAP_MESSAGE_NON, COAP_REQUEST_CODE_GET, coap_new_message_id(session), coap_session_max_pdu_size(session));
     if (!pdu) {
         coap_log(LOG_EMERG, "cannot create PDU\n");
         goto finish;
